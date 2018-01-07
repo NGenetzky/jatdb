@@ -4,6 +4,7 @@ from jatdb.trello.client import get_client
 from jatdb.trello.db import get_table
 from jatdb.trello.db import upsert
 from jatdb.trello.json import board_to_json
+from jatdb.trello.json import card_to_json
 from jatdb.trello.json import list_to_json
 
 def main(args=None):
@@ -18,6 +19,11 @@ def main(args=None):
         lists = b.get_lists('all')
         for l in lists:
             upsert(list_to_json(l), lists_table)
+
+            cards_table = get_table('cards')
+            cards = l.list_cards('all')
+            for card in cards:
+                upsert(card_to_json(card), cards_table)
 
     return 0
 
