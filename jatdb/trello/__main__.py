@@ -3,22 +3,21 @@ import sys
 from jatdb.trello.client import get_client
 from jatdb.trello.db import get_table
 from jatdb.trello.db import upsert
-from jatdb.trello.db import upsert_board
 from jatdb.trello.json import board_to_json
 from jatdb.trello.json import list_to_json
 
 def main(args=None):
     c = get_client()
 
+    boards_table = get_table('boards')
     boards = c.list_boards()
     for b in boards:
-        j = board_to_json(b)
-        upsert_board(j)
+        upsert(board_to_json(b), boards_table)
 
-        list_table = get_table('lists')
+        lists_table = get_table('lists')
         lists = b.get_lists('all')
         for l in lists:
-            upsert(list_to_json(l), list_table)
+            upsert(list_to_json(l), lists_table)
 
     return 0
 
