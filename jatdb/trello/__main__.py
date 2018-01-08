@@ -37,8 +37,7 @@ def fetch():
 
     return 0
 
-def main(args=None):
-    # fetch
+def data_from_client():
     c = get_client()
     boards = c.list_boards()
 
@@ -49,6 +48,10 @@ def main(args=None):
             d.add_list(list_to_json(l))
             for card in l.list_cards('all'):
                 d.add_card(card_to_json(card))
+
+def main(args=None):
+    # fetch
+    # data_from_client
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv[1:]))

@@ -1,9 +1,6 @@
 
 import json
 
-def dump(obj, fp):
-    json.dump(obj, fp, sort_keys=True, indent='\t')
-
 def board_to_json(o):
     '''Converts trello.board.Board to json
 
