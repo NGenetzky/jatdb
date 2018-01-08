@@ -77,7 +77,11 @@ class Data():
             target_is_directory=True
             )
 
+         # TODO: Changes from this need to be applied to all, but I want to
+         # refactor it out into a function.
         list_link = os.path.join(p, 'list')
+        if os.path.islink(list_link):
+            os.remove(list_link)
         if os.path.exists(list_link):
             os.remove(list_link)
         os.symlink(
