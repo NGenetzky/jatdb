@@ -17,10 +17,12 @@ def board_to_json(o):
       "labelNames": {...}
     }
     '''
+
     d = {
         'id': o.id,
         'name': o.name,
         'desc': o.description,
+        # 'dateLastActivity': o.date_last_activity.isoformat(), # TODO
         'closed': o.closed,
         # 'idOrganization': o.client.id, # TODO: This doesn't seem to be available?
         'url': o.url,
@@ -40,6 +42,7 @@ def list_to_json(o):
       "subscribed": false
     }
     '''
+
     d = {
         'id': o.id,
         'name': o.name,
@@ -82,13 +85,13 @@ def card_to_json(o):
       "url": "https://trello.com/c/nqPiDKmw/9-grand-canyon-national-park"
     }
     '''
+
     d = {
         'closed': o.closed,
-        # 'dateLastActivity': o.dateLastActivity, # TODO
+        'dateLastActivity': o.dateLastActivity.isoformat(),
         'desc': o.desc,
         'due': o.due,
         'id': o.id,
-        'idBoard': o.idBoard,
         'idBoard': o.idBoard,
         'idLabels': o.idLabels,
         'idList': o.idList,
