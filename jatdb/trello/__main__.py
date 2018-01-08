@@ -1,6 +1,7 @@
 import sys
 
 from jatdb.trello.client import get_client
+from jatdb.trello.data import Data
 from jatdb.trello.db import get_table
 from jatdb.trello.db import upsert
 from jatdb.trello.json import board_to_json
@@ -25,7 +26,7 @@ def upsert_cards_from_list(l):
     for card in cards:
         upsert(card_to_json(card), cards_table)
 
-def main(args=None):
+def fetch():
     c = get_client()
 
     upsert_boards_from_client(c)
@@ -35,6 +36,19 @@ def main(args=None):
             upsert_cards_from_list(l)
 
     return 0
+
+def main(args=None):
+    # fetch
+    c = get_client()
+    boards = c.list_boards()
+
+    d = Data('_data')
+    for b in boards:
+        d.add_board(board_to_json(b))
+        for l in b.get_lists('all'):
+            d.add_list(list_to_json(l))
+            for card in l.list_cards('all'):
+                d.add_card(card_to_json(card))
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv[1:]))

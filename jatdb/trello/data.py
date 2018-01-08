@@ -1,16 +1,17 @@
 
 import os
+from jatdb.trello.db import dump
 
-class DataDir():
+class Data():
 
     def __init__(self, root):
         self.root = root
         if not os.path.exists(self.root):
             raise Exception()
 
-        os.makedirs(os.path.join(self.root,'boards'), exist_ok=True)
-        os.makedirs(os.path.join(self.root,'lists'), exist_ok=True)
-        os.makedirs(os.path.join(self.root,'cards'), exist_ok=True)
+        # os.makedirs(os.path.join(self.root,'boards'), exist_ok=True)
+        # os.makedirs(os.path.join(self.root,'lists'), exist_ok=True)
+        # os.makedirs(os.path.join(self.root,'cards'), exist_ok=True)
 
     def db_path(self):
         return os.path.join(self.root,'trello.json')
@@ -21,7 +22,8 @@ class DataDir():
     def make_row(self, table, id_):
         p = self.row_path(table,id_)
         if not os.path.exists(p):
-            return os.mkdir(p)
+            os.makedirs(p)
+        return p
 
     def link_alias(self, table, id_, alias):
         os.symlink(
@@ -38,18 +40,28 @@ class DataDir():
     #             target_is_directory=True
     #             )
 
+    def add_board(self, j):
+        p = self.make_row('boards', j['id'])
+        with open(os.path.join(p,'board.json'),'w') as f:
+            dump(j,f)
+
+    def add_list(self, j):
+        p = self.make_row('lists', j['id'])
+        with open(os.path.join(p,'list.json'),'w') as f:
+            dump(j,f)
+        # os.symlink(
+        #     os.path.join(os.pardir,os.pardir,'boards',j['idBoard']),
+        #     os.path.join(p, 'board'),
+        #     target_is_directory=True
+        #     )
+
+    def add_card(self, j):
+        p = self.make_row('cards', j['id'])
+        with open(os.path.join(p,'card.json'),'w') as f:
+            dump(j,f)
+
 def main(args=None):
     d = DataDir('_data')
-    row_id = '5a4ec5841e3fdbb6adb79c0f'
-    print(d.row_path('boards', row_id))
-
-    d.make_row('boards', row_id)
-    d.make_row('cards', '9a4ec5841e3fdbb6adb79c0f')
-
-    d.link_alias('boards', row_id, 'GTD')
-
-    # d.link_ref('boards', row_id, 'cards')
-
     return 0
 
 if __name__ == "__main__":
