@@ -49,16 +49,38 @@ class Data():
         p = self.make_row('lists', j['id'])
         with open(os.path.join(p,'list.json'),'w') as f:
             dump(j,f)
-        # os.symlink(
-        #     os.path.join(os.pardir,os.pardir,'boards',j['idBoard']),
-        #     os.path.join(p, 'board'),
-        #     target_is_directory=True
-        #     )
+
+        board_link = os.path.join(p, 'board')
+        if os.path.exists(board_link):
+            os.remove(board_link)
+        os.symlink(
+            os.path.join(os.pardir,os.pardir,'boards',j['idBoard']),
+            board_link,
+            target_is_directory=True
+            )
 
     def add_card(self, j):
         p = self.make_row('cards', j['id'])
         with open(os.path.join(p,'card.json'),'w') as f:
             dump(j,f)
+
+        board_link = os.path.join(p, 'board')
+        if os.path.exists(board_link):
+            os.remove(board_link)
+        os.symlink(
+            os.path.join(os.pardir,os.pardir,'boards',j['idBoard']),
+            board_link,
+            target_is_directory=True
+            )
+
+        list_link = os.path.join(p, 'list')
+        if os.path.exists(list_link):
+            os.remove(list_link)
+        os.symlink(
+            os.path.join(os.pardir,os.pardir,'list',j['idList']),
+            list_link,
+            target_is_directory=True
+            )
 
 def main(args=None):
     d = DataDir('_data')
