@@ -6,7 +6,13 @@ from typing import List, Dict
 from six import iteritems
 from ..util import deserialize_date, deserialize_datetime
 
+from tinydb import where
+from tinydb import TinyDB
+
 import requests
+import json
+
+JSONDB = '/data/db.json'
 
 def trello_model_id_put(model, id, key, token):
     """
@@ -33,6 +39,11 @@ def trello_model_id_put(model, id, key, token):
 
     if response.status_code not in [200]:
         return (response.status_code, response.text)
+    j = json.loads(response.text)
+
+    db = TinyDB(JSONDB)
+    t = db.table(model)
+    t.upsert(j, where('id') == j['id'])
 
     return response.text
 
