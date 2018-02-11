@@ -6,6 +6,7 @@ from typing import List, Dict
 from six import iteritems
 from ..util import deserialize_date, deserialize_datetime
 
+import requests
 
 def trello_model_id_put(model, id, key, token):
     """
@@ -22,7 +23,18 @@ def trello_model_id_put(model, id, key, token):
 
     :rtype: UniversalResource
     """
-    return 'do some magic!'
+
+    url = "https://api.trello.com/1/boards/{0}".format(id)
+    querystring = {
+        "key": key,
+        "token": token
+    }
+    response = requests.request("GET", url, params=querystring)
+
+    if response.status_code not in [200]:
+        return (response.status_code, response.text)
+
+    return response.text
 
 
 def trello_post(key, token, query=None):
