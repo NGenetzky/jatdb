@@ -14,6 +14,9 @@ import json
 
 JSONDB = '/data/db.json'
 
+def table_name(model):
+    return 'trello.{0}'.format(model)
+
 def trello_model_id_put(model, id, key, token):
     """
     trello_model_id_put
@@ -30,7 +33,7 @@ def trello_model_id_put(model, id, key, token):
     :rtype: UniversalResource
     """
 
-    url = "https://api.trello.com/1/boards/{0}".format(id)
+    url = "https://api.trello.com/1/{0}/{1}".format(model, id)
     querystring = {
         "key": key,
         "token": token
@@ -42,7 +45,7 @@ def trello_model_id_put(model, id, key, token):
     j = json.loads(response.text)
 
     db = TinyDB(JSONDB)
-    t = db.table(model)
+    t = db.table(table_name(model))
     t.upsert(j, where('id') == j['id'])
 
     return response.text
