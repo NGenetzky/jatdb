@@ -18,7 +18,7 @@ build() {
 run() {
   docker run \
     --name "${PN}" \
-    -p 80:80 \
+    -p 8080:80 \
     -v "$(pwd)/data:/data:rw" \
     "$(get_tag)"
 }

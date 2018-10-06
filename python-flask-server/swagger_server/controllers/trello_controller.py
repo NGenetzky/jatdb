@@ -8,6 +8,7 @@ from ..util import deserialize_date, deserialize_datetime
 
 from tinydb import where
 from tinydb import TinyDB
+from trello import TrelloClient
 
 import requests
 import json
@@ -80,4 +81,7 @@ def trello_put(key, token):
 
     :rtype: int
     """
-    return 'do some magic!'
+    c = TrelloClient( api_key=key, token=token )
+    boards = c.list_boards()
+    return ' '.join(boards)
+
