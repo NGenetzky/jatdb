@@ -24,17 +24,6 @@ def uri_post(uri):  # noqa: E501
         uri = UniversalResource.from_dict(connexion.request.get_json())  # noqa: E501
 
     dbapp = DbApp()
-    table = dbapp.db.table('jatdb.universal_resource')
+    ret = dbapp.post_uri(uri)
 
-    query = tinydb.Query()
-    docs = table.search(query.uri == uri.uri)
-
-    if len(docs) is 0:
-        docid = table.insert(uri.to_dict())
-        rv = uri
-    elif len(docs) is 1:
-        rv = UniversalResource.from_dict(docs[0])
-    else:
-        raise Exception('There should never be more than one doc!')
-
-    return rv
+    return ret

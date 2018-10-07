@@ -4,6 +4,7 @@ import os.path
 import tinydb
 
 from jatdb_server.encoder import JSONEncoder
+from jatdb_server.models.universal_resource import UniversalResource  # noqa: E501
 
 # TODO: Respect XDG_DATA_HOME and XDG_CONFIG_HOME
 CONFIG_HOME = os.path.expanduser("~/.config/jatdb")
@@ -34,3 +35,21 @@ class DbApp(object):
     def _create_db(self):
         dbpath = os.path.join(self._datadir, 'db.json')
         return tinydb.TinyDB(dbpath, cls=JSONEncoder)
+
+    def post_uri(self, uri):
+        """ POST UniversalResource
+        """
+        table = self.db.table('jatdb.universal_resource')
+
+        query = tinydb.Query()
+        docs = table.search(query.uri == uri.uri)
+
+        if len(docs) is 0:
+            table.insert(uri.to_dict())
+            rv = uri
+        elif len(docs) is 1:
+            rv = UniversalResource.from_dict(docs[0])
+        else:
+            raise Exception('There should never be more than one doc!')
+
+        return rv
