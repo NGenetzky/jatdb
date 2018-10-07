@@ -24,18 +24,13 @@ def uri_post(uri):  # noqa: E501
         uri = UniversalResource.from_dict(connexion.request.get_json())  # noqa: E501
 
     dbapp = DbApp()
-    t = dbapp.db.table('jatdb.universal_resource')
+    table = dbapp.db.table('jatdb.universal_resource')
 
     query = tinydb.Query()
-    docs = dbapp.db.search(query.uri == uri.uri)
+    docs = table.search(query.uri == uri.uri)
 
     if len(docs) is 0:
-        data = {
-            "uri":uri.uri,
-            "uuid":uri.uuid,
-            "date":uri.date
-        }
-        docid = t.insert(data)
+        docid = table.insert(uri.to_dict())
         rv = uri
     elif len(docs) is 1:
         rv = UniversalResource.from_dict(docs[0])
