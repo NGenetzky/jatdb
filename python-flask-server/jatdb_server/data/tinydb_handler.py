@@ -3,6 +3,8 @@
 import os.path
 import tinydb
 
+from jatdb_server.encoder import JSONEncoder
+
 # TODO: Respect XDG_DATA_HOME and XDG_CONFIG_HOME
 CONFIG_HOME = os.path.expanduser("~/.config/jatdb")
 DATA_HOME = os.path.expanduser("~/.local/share/jatdb")
@@ -31,4 +33,4 @@ class DbApp(object):
 
     def _create_db(self):
         dbpath = os.path.join(self._datadir, 'db.json')
-        return tinydb.TinyDB(dbpath)
+        return tinydb.TinyDB(dbpath, cls=JSONEncoder)
