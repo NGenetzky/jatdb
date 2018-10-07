@@ -1,8 +1,7 @@
 # coding: utf-8
 
 from __future__ import absolute_import
-# from datetime import date, datetime  # noqa: F401
-import datetime
+from datetime import date, datetime  # noqa: F401
 
 from typing import List, Dict  # noqa: F401
 
@@ -16,6 +15,18 @@ class UniversalResource(Model):
     Do not edit the class manually.
     """
 
+    swagger_types = {
+        'uri': str,
+        'uuid': str,
+        'date': date
+    }
+
+    attribute_map = {
+        'uri': 'uri',
+        'uuid': 'uuid',
+        'date': 'date'
+    }
+
     def __init__(self, uri=None, uuid=None, date=None):  # noqa: E501
         """UniversalResource - a model defined in Swagger
 
@@ -26,18 +37,6 @@ class UniversalResource(Model):
         :param date: The date of this UniversalResource.  # noqa: E501
         :type date: date
         """
-        self.swagger_types = {
-            'uri': str,
-            'uuid': str,
-            'date': datetime.date
-        }
-
-        self.attribute_map = {
-            'uri': 'uri',
-            'uuid': 'uuid',
-            'date': 'date'
-        }
-
         self._uri = uri
         self._uuid = uuid
         self._date = date
