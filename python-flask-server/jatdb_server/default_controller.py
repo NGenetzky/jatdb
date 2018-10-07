@@ -8,7 +8,7 @@ from jatdb_server import util
 
 import tinydb
 
-from jatdb_server.data.tinydb_handler import get_db
+from jatdb_server.data.tinydb_handler import DbApp
 
 def uri_post(uri):  # noqa: E501
     """uri_post
@@ -23,11 +23,11 @@ def uri_post(uri):  # noqa: E501
     if connexion.request.is_json:
         uri = UniversalResource.from_dict(connexion.request.get_json())  # noqa: E501
 
-    db = get_db()
-    t = db.table('jatdb.universal_resource')
+    dbapp = DbApp()
+    t = dbapp.db.table('jatdb.universal_resource')
 
     query = tinydb.Query()
-    docs = db.search(query.uri == uri.uri)
+    docs = dbapp.db.search(query.uri == uri.uri)
 
     if len(docs) is 0:
         data = {
