@@ -36,7 +36,7 @@ paths:
           description: "successfully registered device"
           schema:
             $ref: "#/definitions/UniversalResource"
-      x-swagger-router-controller: "jatdb_server..default_controller"
+      x-swagger-router-controller: "jatdb_server.default_controller"
   /content/:
     get:
       tags:
@@ -53,7 +53,7 @@ paths:
           description: "Successfully created"
           schema:
             $ref: "#/definitions/ContentFile"
-      x-swagger-router-controller: "jatdb_server..content_controller"
+      x-swagger-router-controller: "jatdb_server.content_controller"
     post:
       tags:
       - "content"
@@ -69,7 +69,7 @@ paths:
           description: "Successfully created"
           schema:
             $ref: "#/definitions/UniversalResource"
-      x-swagger-router-controller: "jatdb_server..content_controller"
+      x-swagger-router-controller: "jatdb_server.content_controller"
     put:
       tags:
       - "content"
@@ -90,7 +90,7 @@ paths:
           description: "Successfully created"
           schema:
             $ref: "#/definitions/UniversalResource"
-      x-swagger-router-controller: "jatdb_server..content_controller"
+      x-swagger-router-controller: "jatdb_server.content_controller"
   /trello/:
     post:
       tags:
@@ -115,7 +115,7 @@ paths:
           description: "Returns the index of the query."
           schema:
             type: "integer"
-      x-swagger-router-controller: "jatdb_server..trello_controller"
+      x-swagger-router-controller: "jatdb_server.trello_controller"
     put:
       tags:
       - "trello"
@@ -134,7 +134,7 @@ paths:
           description: "Sucessfully added to DB."
           schema:
             type: "integer"
-      x-swagger-router-controller: "jatdb_server..trello_controller"
+      x-swagger-router-controller: "jatdb_server.trello_controller"
   /trello/{model}/{id}:
     put:
       tags:
@@ -155,7 +155,7 @@ paths:
           description: "Sucessfully added to DB."
           schema:
             $ref: "#/definitions/UniversalResource"
-      x-swagger-router-controller: "jatdb_server..trello_controller"
+      x-swagger-router-controller: "jatdb_server.trello_controller"
 definitions:
   ContentFile:
     type: "object"
