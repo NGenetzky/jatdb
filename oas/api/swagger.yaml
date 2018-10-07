@@ -1,20 +1,19 @@
 ---
 swagger: "2.0"
 info:
-  description: "This is an API I am designing for myself using swagger.\nYou can find\
-    \  out more about Swagger at [http://swagger.io](http://swagger.io)\n"
-  version: "0.0.1"
-  title: "NGenetzky's API"
+  description: "JSON API to DB: Fetch JSON from APIs and send to a TinyDB database."
+  version: "0.0.2"
+  title: "jatdb"
   contact:
     email: "Nathan@Genetzky.us"
   license:
     name: "MIT"
-    url: "https://opensource.org/licenses/MIT"
-host: "0.0.0.0"
-basePath: "/v0"
+    url: "https://github.com/NGenetzky/jatdb/blob/master/LICENSE"
 tags:
 - name: "trello"
   description: "Interact with Trello"
+- name: "content"
+  description: "Interact with Markdown Content"
 schemes:
 - "https"
 - "http"
@@ -34,6 +33,54 @@ paths:
       responses:
         200:
           description: "successfully registered device"
+          schema:
+            $ref: "#/definitions/UniversalResource"
+  /content/:
+    get:
+      tags:
+      - "content"
+      parameters:
+      - in: "query"
+        name: "path"
+        description: "Relative path to file"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Successfully created"
+          schema:
+            $ref: "#/definitions/ContentFile"
+    put:
+      tags:
+      - "content"
+      parameters:
+      - in: "query"
+        name: "path"
+        description: "Relative path to file"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "contentfile"
+        required: true
+        schema:
+          $ref: "#/definitions/ContentFile"
+      responses:
+        200:
+          description: "Successfully created"
+          schema:
+            $ref: "#/definitions/UniversalResource"
+    post:
+      tags:
+      - "content"
+      parameters:
+      - in: "body"
+        name: "contentfile"
+        required: true
+        schema:
+          $ref: "#/definitions/ContentFile"
+      responses:
+        200:
+          description: "Successfully created"
           schema:
             $ref: "#/definitions/UniversalResource"
   /trello/:
@@ -56,7 +103,7 @@ paths:
           $ref: "#/definitions/TrelloQuery"
       responses:
         200:
-          description: "Returns the index of the querry."
+          description: "Returns the index of the query."
           schema:
             type: "integer"
     put:
@@ -96,6 +143,26 @@ paths:
           schema:
             $ref: "#/definitions/UniversalResource"
 definitions:
+  ContentFile:
+    type: "object"
+    required:
+    - "content"
+    properties:
+      content:
+        type: "string"
+        description: "Actual markdown content"
+      path:
+        type: "string"
+        description: "Relative path to file"
+      metadata:
+        type: "object"
+        description: "Data associated with content"
+    example:
+      content: "Some meaningful markdown\n\n[google](https://www.google.com/)"
+      path: "post/2018-10-31-happy-birthday.md"
+      metadata:
+        date: '2018-10-31'
+        title: 'Happy Birthday'
   TrelloQuery:
     type: "object"
     properties:
@@ -157,5 +224,5 @@ definitions:
       uri: "http://example.com/aeiou"
       uuid: "046b6c7f-0b8a-43b9-b35d-6489e6daee91"
 externalDocs:
-  description: "Feel free to look at the source code for this api."
-  url: "https://github.com/NGenetzky/ngenetzky-api/"
+  description: "github.com/NGenetzky/jatdb/"
+  url: "https://github.com/NGenetzky/jatdb/"
