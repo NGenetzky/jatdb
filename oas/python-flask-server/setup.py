@@ -18,10 +18,10 @@ REQUIRES = ["connexion"]
 setup(
     name=NAME,
     version=VERSION,
-    description="NGenetzky&#39;s API",
+    description="jatdb",
     author_email="Nathan@Genetzky.us",
     url="",
-    keywords=["Swagger", "NGenetzky&#39;s API"],
+    keywords=["Swagger", "jatdb"],
     install_requires=REQUIRES,
     packages=find_packages(),
     package_data={'': ['swagger/swagger.yaml']},
@@ -29,7 +29,7 @@ setup(
     entry_points={
         'console_scripts': ['jatdb_server=jatdb_server.__main__:main']},
     long_description="""\
-    This is an API I am designing for myself using swagger. You can find  out more about Swagger at [http://swagger.io](http://swagger.io) 
+    JSON API to DB: Fetch JSON from APIs and send to a TinyDB database.
     """
 )
 

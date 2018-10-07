@@ -8,7 +8,7 @@ from jatdb_server import encoder
 def main():
     app = connexion.App(__name__, specification_dir='./swagger/')
     app.app.json_encoder = encoder.JSONEncoder
-    app.add_api('swagger.yaml', arguments={'title': 'NGenetzky&#39;s API'})
+    app.add_api('swagger.yaml', arguments={'title': 'jatdb'})
     app.run(port=8080)
 
 

@@ -19,7 +19,7 @@ class TestDefaultController(BaseTestCase):
         """
         uri = UniversalResource()
         response = self.client.open(
-            '/v0/uri/',
+            '/uri/',
             method='POST',
             data=json.dumps(uri),
             content_type='application/json')

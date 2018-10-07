@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>NGenetzky's API</title>
+  <title>jatdb</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta charset="UTF-8" />
@@ -696,6 +696,33 @@ margin-bottom: 20px;
   <script>
     // Script section to load models into a JS Var
     var defs = {}
+            defs.ContentFile = {
+  "type" : "object",
+  "required" : [ "content" ],
+  "properties" : {
+    "content" : {
+      "type" : "string",
+      "description" : "Actual markdown content"
+    },
+    "path" : {
+      "type" : "string",
+      "description" : "Relative path to file"
+    },
+    "metadata" : {
+      "type" : "object",
+      "description" : "Data associated with content",
+      "properties" : { }
+    }
+  },
+  "example" : {
+    "content" : "Some meaningful markdown\n\n[google](https://www.google.com/)",
+    "path" : "post/2018-10-31-happy-birthday.md",
+    "metadata" : {
+      "date" : "2018-10-31",
+      "title" : "Happy Birthday"
+    }
+  }
+};
             defs.TrelloAction = {
   "type" : "object",
   "properties" : {
@@ -792,6 +819,16 @@ margin-bottom: 20px;
             -->
             <li class="nav-fixed nav-header active" data-group="_"><a href="#api-_">API Summary</a></li>
 
+                  <li class="nav-header" data-group="Content"><a href="#api-Content">API Methods - Content</a></li>
+                    <li data-group="Content" data-name="contentGet" class="">
+                      <a href="#api-Content-contentGet">contentGet</a>
+                    </li>
+                    <li data-group="Content" data-name="contentPost" class="">
+                      <a href="#api-Content-contentPost">contentPost</a>
+                    </li>
+                    <li data-group="Content" data-name="contentPut" class="">
+                      <a href="#api-Content-contentPut">contentPut</a>
+                    </li>
                   <li class="nav-header" data-group="Default"><a href="#api-Default">API Methods - Default</a></li>
                     <li data-group="Default" data-name="uriPost" class="">
                       <a href="#api-Default-uriPost">uriPost</a>
@@ -812,20 +849,951 @@ margin-bottom: 20px;
       <div id="content">
         <div id="project">
           <div class="pull-left">
-            <h1>NGenetzky's API</h1>
+            <h1>jatdb</h1>
           </div>
           <div class="clearfix"></div>
         </div>
         <div id="header">
           <div id="api-_">
             <h2 id="welcome-to-apidoc">API and SDK Documentation</h2>
-              <div class="app-desc">Version: 0.0.1</div>
+              <div class="app-desc">Version: 0.0.2</div>
             <hr>
-            <div>This is an API I am designing for myself using swagger.
-You can find  out more about Swagger at <a href="http://swagger.io">http://swagger.io</a></div>
+            <div>JSON API to DB: Fetch JSON from APIs and send to a TinyDB database.</div>
           </div>
         </div>
         <div id="sections">
+                <section id="api-Content">
+                  <h1>Content</h1>
+                    <div id="api-Content-contentGet">
+                      <article id="api-Content-contentGet-0" data-group="User" data-name="contentGet" data-version="0">
+                        <div class="pull-left">
+                          <h1>contentGet</h1>
+                          <p></p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/content/</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Content-contentGet-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Content-contentGet-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Content-contentGet-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Content-contentGet-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Content-contentGet-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Content-contentGet-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Content-contentGet-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Content-contentGet-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Content-contentGet-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Content-contentGet-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Content-contentGet-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Content-contentGet-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://localhost/content/?path="</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Content-contentGet-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.ContentApi;
+
+import java.io.File;
+import java.util.*;
+
+public class ContentApiExample {
+
+    public static void main(String[] args) {
+        
+        ContentApi apiInstance = new ContentApi();
+        String path = path_example; // String | Relative path to file
+        try {
+            ContentFile result = apiInstance.contentGet(path);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ContentApi#contentGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Content-contentGet-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.ContentApi;
+
+public class ContentApiExample {
+
+    public static void main(String[] args) {
+        ContentApi apiInstance = new ContentApi();
+        String path = path_example; // String | Relative path to file
+        try {
+            ContentFile result = apiInstance.contentGet(path);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ContentApi#contentGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Content-contentGet-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Content-contentGet-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">String *path = path_example; // Relative path to file
+
+ContentApi *apiInstance = [[ContentApi alloc] init];
+
+[apiInstance contentGetWith:path
+              completionHandler: ^(ContentFile output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Content-contentGet-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var Jatdb = require('jatdb');
+
+var api = new Jatdb.ContentApi()
+
+var path = path_example; // {String} Relative path to file
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.contentGet(path, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Content-contentGet-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Content-contentGet-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class contentGetExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new ContentApi();
+            var path = path_example;  // String | Relative path to file
+
+            try
+            {
+                ContentFile result = apiInstance.contentGet(path);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling ContentApi.contentGet: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Content-contentGet-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\Api\ContentApi();
+$path = path_example; // String | Relative path to file
+
+try {
+    $result = $api_instance->contentGet($path);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ContentApi->contentGet: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Content-contentGet-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::ContentApi;
+
+my $api_instance = WWW::SwaggerClient::ContentApi->new();
+my $path = path_example; # String | Relative path to file
+
+eval { 
+    my $result = $api_instance->contentGet(path => $path);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling ContentApi->contentGet: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Content-contentGet-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import jatdb
+from jatdb.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = jatdb.ContentApi()
+path = path_example # String | Relative path to file
+
+try: 
+    api_response = api_instance.content_get(path)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling ContentApi->contentGet: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">path*</td>
+<td>
+
+
+    <div id="d2e199_contentGet_path">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description">
+                        Relative path to file
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - Successfully created </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-contentGet-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-contentGet-200-schema">
+                                  <div id='responses-contentGet-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Successfully created",
+  "schema" : {
+    "$ref" : "#/definitions/ContentFile"
+  }
+};
+                                        var schema = schemaWrapper.schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-contentGet-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-contentGet-200-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-contentGet-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Content-contentPost">
+                      <article id="api-Content-contentPost-0" data-group="User" data-name="contentPost" data-version="0">
+                        <div class="pull-left">
+                          <h1>contentPost</h1>
+                          <p></p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/content/</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Content-contentPost-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Content-contentPost-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Content-contentPost-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Content-contentPost-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Content-contentPost-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Content-contentPost-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Content-contentPost-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Content-contentPost-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Content-contentPost-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Content-contentPost-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Content-contentPost-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Content-contentPost-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "https://localhost/content/"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Content-contentPost-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.ContentApi;
+
+import java.io.File;
+import java.util.*;
+
+public class ContentApiExample {
+
+    public static void main(String[] args) {
+        
+        ContentApi apiInstance = new ContentApi();
+        ContentFile contentfile = ; // ContentFile | 
+        try {
+            UniversalResource result = apiInstance.contentPost(contentfile);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ContentApi#contentPost");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Content-contentPost-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.ContentApi;
+
+public class ContentApiExample {
+
+    public static void main(String[] args) {
+        ContentApi apiInstance = new ContentApi();
+        ContentFile contentfile = ; // ContentFile | 
+        try {
+            UniversalResource result = apiInstance.contentPost(contentfile);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ContentApi#contentPost");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Content-contentPost-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Content-contentPost-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">ContentFile *contentfile = ; // 
+
+ContentApi *apiInstance = [[ContentApi alloc] init];
+
+[apiInstance contentPostWith:contentfile
+              completionHandler: ^(UniversalResource output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Content-contentPost-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var Jatdb = require('jatdb');
+
+var api = new Jatdb.ContentApi()
+
+var contentfile = ; // {ContentFile} 
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.contentPost(contentfile, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Content-contentPost-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Content-contentPost-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class contentPostExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new ContentApi();
+            var contentfile = new ContentFile(); // ContentFile | 
+
+            try
+            {
+                UniversalResource result = apiInstance.contentPost(contentfile);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling ContentApi.contentPost: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Content-contentPost-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\Api\ContentApi();
+$contentfile = ; // ContentFile | 
+
+try {
+    $result = $api_instance->contentPost($contentfile);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ContentApi->contentPost: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Content-contentPost-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::ContentApi;
+
+my $api_instance = WWW::SwaggerClient::ContentApi->new();
+my $contentfile = WWW::SwaggerClient::Object::ContentFile->new(); # ContentFile | 
+
+eval { 
+    my $result = $api_instance->contentPost(contentfile => $contentfile);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling ContentApi->contentPost: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Content-contentPost-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import jatdb
+from jatdb.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = jatdb.ContentApi()
+contentfile =  # ContentFile | 
+
+try: 
+    api_response = api_instance.content_post(contentfile)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling ContentApi->contentPost: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">contentfile <span style="color:red;">*</span></td>
+<td>
+
+
+<script>
+$(document).ready(function() {
+  var schemaWrapper = {
+  "in" : "body",
+  "name" : "contentfile",
+  "required" : true,
+  "schema" : {
+    "$ref" : "#/definitions/ContentFile"
+  }
+};
+  var schema = schemaWrapper.schema;
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_contentPost_contentfile');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_contentPost_contentfile"></div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - Successfully created </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-contentPost-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-contentPost-200-schema">
+                                  <div id='responses-contentPost-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Successfully created",
+  "schema" : {
+    "$ref" : "#/definitions/UniversalResource"
+  }
+};
+                                        var schema = schemaWrapper.schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-contentPost-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-contentPost-200-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-contentPost-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Content-contentPut">
+                      <article id="api-Content-contentPut-0" data-group="User" data-name="contentPut" data-version="0">
+                        <div class="pull-left">
+                          <h1>contentPut</h1>
+                          <p></p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked"></p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="put"><code><span class="pln">/content/</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Content-contentPut-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Content-contentPut-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Content-contentPut-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Content-contentPut-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Content-contentPut-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Content-contentPut-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Content-contentPut-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Content-contentPut-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Content-contentPut-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Content-contentPut-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Content-contentPut-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Content-contentPut-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT "https://localhost/content/?path="</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Content-contentPut-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.ContentApi;
+
+import java.io.File;
+import java.util.*;
+
+public class ContentApiExample {
+
+    public static void main(String[] args) {
+        
+        ContentApi apiInstance = new ContentApi();
+        String path = path_example; // String | Relative path to file
+        ContentFile contentfile = ; // ContentFile | 
+        try {
+            UniversalResource result = apiInstance.contentPut(path, contentfile);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ContentApi#contentPut");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Content-contentPut-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.ContentApi;
+
+public class ContentApiExample {
+
+    public static void main(String[] args) {
+        ContentApi apiInstance = new ContentApi();
+        String path = path_example; // String | Relative path to file
+        ContentFile contentfile = ; // ContentFile | 
+        try {
+            UniversalResource result = apiInstance.contentPut(path, contentfile);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ContentApi#contentPut");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Content-contentPut-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Content-contentPut-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">String *path = path_example; // Relative path to file
+ContentFile *contentfile = ; // 
+
+ContentApi *apiInstance = [[ContentApi alloc] init];
+
+[apiInstance contentPutWith:path
+    contentfile:contentfile
+              completionHandler: ^(UniversalResource output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Content-contentPut-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var Jatdb = require('jatdb');
+
+var api = new Jatdb.ContentApi()
+
+var path = path_example; // {String} Relative path to file
+
+var contentfile = ; // {ContentFile} 
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.contentPut(path, contentfile, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Content-contentPut-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Content-contentPut-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class contentPutExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new ContentApi();
+            var path = path_example;  // String | Relative path to file
+            var contentfile = new ContentFile(); // ContentFile | 
+
+            try
+            {
+                UniversalResource result = apiInstance.contentPut(path, contentfile);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling ContentApi.contentPut: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Content-contentPut-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\Api\ContentApi();
+$path = path_example; // String | Relative path to file
+$contentfile = ; // ContentFile | 
+
+try {
+    $result = $api_instance->contentPut($path, $contentfile);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ContentApi->contentPut: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Content-contentPut-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::ContentApi;
+
+my $api_instance = WWW::SwaggerClient::ContentApi->new();
+my $path = path_example; # String | Relative path to file
+my $contentfile = WWW::SwaggerClient::Object::ContentFile->new(); # ContentFile | 
+
+eval { 
+    my $result = $api_instance->contentPut(path => $path, contentfile => $contentfile);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling ContentApi->contentPut: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Content-contentPut-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import jatdb
+from jatdb.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = jatdb.ContentApi()
+path = path_example # String | Relative path to file
+contentfile =  # ContentFile | 
+
+try: 
+    api_response = api_instance.content_put(path, contentfile)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling ContentApi->contentPut: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">contentfile <span style="color:red;">*</span></td>
+<td>
+
+
+<script>
+$(document).ready(function() {
+  var schemaWrapper = {
+  "in" : "body",
+  "name" : "contentfile",
+  "required" : true,
+  "schema" : {
+    "$ref" : "#/definitions/ContentFile"
+  }
+};
+  var schema = schemaWrapper.schema;
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_contentPut_contentfile');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_contentPut_contentfile"></div>
+</td>
+</tr>
+
+                            </table>
+
+
+                            <div class="methodsubtabletitle">Query parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">path*</td>
+<td>
+
+
+    <div id="d2e199_contentPut_path">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description">
+                        Relative path to file
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                            </table>
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - Successfully created </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-contentPut-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-contentPut-200-schema">
+                                  <div id='responses-contentPut-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Successfully created",
+  "schema" : {
+    "$ref" : "#/definitions/UniversalResource"
+  }
+};
+                                        var schema = schemaWrapper.schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-contentPut-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-contentPut-200-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-contentPut-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                  </section>
                 <section id="api-Default">
                   <h1>Default</h1>
                     <div id="api-Default-uriPost">
@@ -860,7 +1828,7 @@ You can find  out more about Swagger at <a href="http://swagger.io">http://swagg
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Default-uriPost-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "https://0.0.0.0/v0/uri/"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "https://localhost/uri/"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Default-uriPost-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -928,9 +1896,9 @@ DefaultApi *apiInstance = [[DefaultApi alloc] init];
                             </div>
 
                             <div class="tab-pane" id="examples-Default-uriPost-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var NGenetzkysApi = require('n_genetzkys_api');
+                              <pre class="prettyprint"><code class="language-js">var Jatdb = require('jatdb');
 
-var api = new NGenetzkysApi.DefaultApi()
+var api = new Jatdb.DefaultApi()
 
 var uri = ; // {UniversalResource} 
 
@@ -1163,7 +2131,7 @@ $(document).ready(function() {
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Trello-trelloModelIdPut-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT "https://0.0.0.0/v0/trello/{model}/{id}"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT "https://localhost/trello/{model}/{id}"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Trello-trelloModelIdPut-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -1236,9 +2204,9 @@ TrelloApi *apiInstance = [[TrelloApi alloc] init];
                             </div>
 
                             <div class="tab-pane" id="examples-Trello-trelloModelIdPut-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var NGenetzkysApi = require('n_genetzkys_api');
+                              <pre class="prettyprint"><code class="language-js">var Jatdb = require('jatdb');
 
-var api = new NGenetzkysApi.TrelloApi()
+var api = new Jatdb.TrelloApi()
 
 var model = model_example; // {String} 
 
@@ -1482,7 +2450,7 @@ except ApiException as e:
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Trello-trelloPost-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "https://0.0.0.0/v0/trello/?key=&token="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "https://localhost/trello/?key=&token="</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Trello-trelloPost-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -1558,9 +2526,9 @@ TrelloApi *apiInstance = [[TrelloApi alloc] init];
                             </div>
 
                             <div class="tab-pane" id="examples-Trello-trelloPost-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var NGenetzkysApi = require('n_genetzkys_api');
+                              <pre class="prettyprint"><code class="language-js">var Jatdb = require('jatdb');
 
-var api = new NGenetzkysApi.TrelloApi()
+var api = new Jatdb.TrelloApi()
 
 var opts = { 
   'key': key_example, // {String} 
@@ -1764,7 +2732,7 @@ $(document).ready(function() {
                             </table>
 
                           <h2>Responses</h2>
-                            <h3> Status: 200 - Returns the index of the querry. </h3>
+                            <h3> Status: 200 - Returns the index of the query. </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                                 <li class="active">
@@ -1779,7 +2747,7 @@ $(document).ready(function() {
                                     <script>
                                       $(document).ready(function() {
                                         var schemaWrapper = {
-  "description" : "Returns the index of the querry.",
+  "description" : "Returns the index of the query.",
   "schema" : {
     "type" : "integer"
   }
@@ -1842,7 +2810,7 @@ $(document).ready(function() {
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Trello-trelloPut-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT "https://0.0.0.0/v0/trello/?key=&token="</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT "https://localhost/trello/?key=&token="</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Trello-trelloPut-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -1914,9 +2882,9 @@ TrelloApi *apiInstance = [[TrelloApi alloc] init];
                             </div>
 
                             <div class="tab-pane" id="examples-Trello-trelloPut-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var NGenetzkysApi = require('n_genetzkys_api');
+                              <pre class="prettyprint"><code class="language-js">var Jatdb = require('jatdb');
 
-var api = new NGenetzkysApi.TrelloApi()
+var api = new Jatdb.TrelloApi()
 
 var opts = { 
   'key': key_example, // {String} 
@@ -2129,12 +3097,12 @@ except ApiException as e:
                   <div class="app-desc">Contact Info: <a href="Nathan@Genetzky.us">Nathan@Genetzky.us</a></div>
               </p>
                 <div class="license-info">MIT</div>
-                <div class="license-url">https://opensource.org/licenses/MIT</div>
+                <div class="license-url">https://github.com/NGenetzky/jatdb/blob/master/LICENSE</div>
             </div>
           </div>
           <div id="generator">
             <div class="content">
-              Generated 2018-10-07T17:17:46.676Z
+              Generated 2018-10-07T18:47:10.764Z
             </div>
           </div>
       </div>

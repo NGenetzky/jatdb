@@ -40,8 +40,8 @@ paths:
       tags:
       - "content"
       parameters:
-      - in: "query"
-        name: "path"
+      - name: "path"
+        in: "query"
         description: "Relative path to file"
         required: true
         type: "string"
@@ -50,15 +50,10 @@ paths:
           description: "Successfully created"
           schema:
             $ref: "#/definitions/ContentFile"
-    put:
+    post:
       tags:
       - "content"
       parameters:
-      - in: "query"
-        name: "path"
-        description: "Relative path to file"
-        required: true
-        type: "string"
       - in: "body"
         name: "contentfile"
         required: true
@@ -69,10 +64,15 @@ paths:
           description: "Successfully created"
           schema:
             $ref: "#/definitions/UniversalResource"
-    post:
+    put:
       tags:
       - "content"
       parameters:
+      - name: "path"
+        in: "query"
+        description: "Relative path to file"
+        required: true
+        type: "string"
       - in: "body"
         name: "contentfile"
         required: true
@@ -157,12 +157,13 @@ definitions:
       metadata:
         type: "object"
         description: "Data associated with content"
+        properties: {}
     example:
       content: "Some meaningful markdown\n\n[google](https://www.google.com/)"
       path: "post/2018-10-31-happy-birthday.md"
       metadata:
-        date: '2018-10-31'
-        title: 'Happy Birthday'
+        date: "2018-10-31"
+        title: "Happy Birthday"
   TrelloQuery:
     type: "object"
     properties:

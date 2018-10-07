@@ -1,18 +1,18 @@
-# jatdb_client.TrelloApi
+# jatdb_client.ContentApi
 
 All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**trello_model_id_put**](TrelloApi.md#trello_model_id_put) | **PUT** /trello/{model}/{id} | Updates the models currently in db.
-[**trello_post**](TrelloApi.md#trello_post) | **POST** /trello/ | 
-[**trello_put**](TrelloApi.md#trello_put) | **PUT** /trello/ | 
+[**content_get**](ContentApi.md#content_get) | **GET** /content/ | 
+[**content_post**](ContentApi.md#content_post) | **POST** /content/ | 
+[**content_put**](ContentApi.md#content_put) | **PUT** /content/ | 
 
 
-# **trello_model_id_put**
-> UniversalResource trello_model_id_put(model, id)
+# **content_get**
+> ContentFile content_get(path)
 
-Updates the models currently in db.
+
 
 ### Example
 ```python
@@ -23,24 +23,66 @@ from jatdb_client.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = jatdb_client.TrelloApi()
-model = 'model_example' # str | 
-id = 'id_example' # str | 
+api_instance = jatdb_client.ContentApi()
+path = 'path_example' # str | Relative path to file
 
 try:
-    # Updates the models currently in db.
-    api_response = api_instance.trello_model_id_put(model, id)
+    api_response = api_instance.content_get(path)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling TrelloApi->trello_model_id_put: %s\n" % e)
+    print("Exception when calling ContentApi->content_get: %s\n" % e)
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **model** | **str**|  | 
- **id** | **str**|  | 
+ **path** | **str**| Relative path to file | 
+
+### Return type
+
+[**ContentFile**](ContentFile.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **content_post**
+> UniversalResource content_post(contentfile)
+
+
+
+### Example
+```python
+from __future__ import print_function
+import time
+import jatdb_client
+from jatdb_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = jatdb_client.ContentApi()
+contentfile = jatdb_client.ContentFile() # ContentFile | 
+
+try:
+    api_response = api_instance.content_post(contentfile)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling ContentApi->content_post: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **contentfile** | [**ContentFile**](ContentFile.md)|  | 
 
 ### Return type
 
@@ -57,8 +99,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **trello_post**
-> int trello_post(key=key, token=token, query=query)
+# **content_put**
+> UniversalResource content_put(path, contentfile)
 
 
 
@@ -71,76 +113,27 @@ from jatdb_client.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = jatdb_client.TrelloApi()
-key = 'key_example' # str |  (optional)
-token = 'token_example' # str |  (optional)
-query = jatdb_client.TrelloQuery() # TrelloQuery |  (optional)
+api_instance = jatdb_client.ContentApi()
+path = 'path_example' # str | Relative path to file
+contentfile = jatdb_client.ContentFile() # ContentFile | 
 
 try:
-    api_response = api_instance.trello_post(key=key, token=token, query=query)
+    api_response = api_instance.content_put(path, contentfile)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling TrelloApi->trello_post: %s\n" % e)
+    print("Exception when calling ContentApi->content_put: %s\n" % e)
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **key** | **str**|  | [optional] 
- **token** | **str**|  | [optional] 
- **query** | [**TrelloQuery**](TrelloQuery.md)|  | [optional] 
+ **path** | **str**| Relative path to file | 
+ **contentfile** | [**ContentFile**](ContentFile.md)|  | 
 
 ### Return type
 
-**int**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **trello_put**
-> int trello_put(key=key, token=token)
-
-
-
-### Example
-```python
-from __future__ import print_function
-import time
-import jatdb_client
-from jatdb_client.rest import ApiException
-from pprint import pprint
-
-# create an instance of the API class
-api_instance = jatdb_client.TrelloApi()
-key = 'key_example' # str |  (optional)
-token = 'token_example' # str |  (optional)
-
-try:
-    api_response = api_instance.trello_put(key=key, token=token)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling TrelloApi->trello_put: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **key** | **str**|  | [optional] 
- **token** | **str**|  | [optional] 
-
-### Return type
-
-**int**
+[**UniversalResource**](UniversalResource.md)
 
 ### Authorization
 

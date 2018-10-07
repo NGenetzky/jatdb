@@ -1,6 +1,6 @@
 # jatdb_client.DefaultApi
 
-All URIs are relative to *https://0.0.0.0/v0*
+All URIs are relative to *https://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------

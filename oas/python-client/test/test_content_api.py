@@ -16,23 +16,35 @@ from __future__ import absolute_import
 import unittest
 
 import jatdb_client
-from jatdb_client.models.universal_resource import UniversalResource  # noqa: E501
+from jatdb_client.api.content_api import ContentApi  # noqa: E501
 from jatdb_client.rest import ApiException
 
 
-class TestUniversalResource(unittest.TestCase):
-    """UniversalResource unit test stubs"""
+class TestContentApi(unittest.TestCase):
+    """ContentApi unit test stubs"""
 
     def setUp(self):
-        pass
+        self.api = jatdb_client.api.content_api.ContentApi()  # noqa: E501
 
     def tearDown(self):
         pass
 
-    def testUniversalResource(self):
-        """Test UniversalResource"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = jatdb_client.models.universal_resource.UniversalResource()  # noqa: E501
+    def test_content_get(self):
+        """Test case for content_get
+
+        """
+        pass
+
+    def test_content_post(self):
+        """Test case for content_post
+
+        """
+        pass
+
+    def test_content_put(self):
+        """Test case for content_put
+
+        """
         pass
 
 

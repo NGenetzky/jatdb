@@ -16,12 +16,12 @@ from __future__ import absolute_import
 import unittest
 
 import jatdb_client
-from jatdb_client.models.universal_resource import UniversalResource  # noqa: E501
+from jatdb_client.models.content_file import ContentFile  # noqa: E501
 from jatdb_client.rest import ApiException
 
 
-class TestUniversalResource(unittest.TestCase):
-    """UniversalResource unit test stubs"""
+class TestContentFile(unittest.TestCase):
+    """ContentFile unit test stubs"""
 
     def setUp(self):
         pass
@@ -29,10 +29,10 @@ class TestUniversalResource(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def testUniversalResource(self):
-        """Test UniversalResource"""
+    def testContentFile(self):
+        """Test ContentFile"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = jatdb_client.models.universal_resource.UniversalResource()  # noqa: E501
+        # model = jatdb_client.models.content_file.ContentFile()  # noqa: E501
         pass
 
 

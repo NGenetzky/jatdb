@@ -19,7 +19,7 @@ class TestTrelloController(BaseTestCase):
         Updates the models currently in db.
         """
         response = self.client.open(
-            '/v0/trello/{model}/{id}'.format(model='model_example', id='id_example'),
+            '/trello/{model}/{id}'.format(model='model_example', id='id_example'),
             method='PUT',
             content_type='application/json')
         self.assert200(response,
@@ -34,7 +34,7 @@ class TestTrelloController(BaseTestCase):
         query_string = [('key', 'key_example'),
                         ('token', 'token_example')]
         response = self.client.open(
-            '/v0/trello/',
+            '/trello/',
             method='POST',
             data=json.dumps(query),
             content_type='application/json',
@@ -50,7 +50,7 @@ class TestTrelloController(BaseTestCase):
         query_string = [('key', 'key_example'),
                         ('token', 'token_example')]
         response = self.client.open(
-            '/v0/trello/',
+            '/trello/',
             method='PUT',
             content_type='application/json',
             query_string=query_string)
