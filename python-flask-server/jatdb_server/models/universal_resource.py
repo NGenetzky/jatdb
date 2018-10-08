@@ -18,7 +18,7 @@ class UniversalResource(Model):
     swagger_types = {
         'uri': str,
         'uuid': str,
-        'date': date
+        'date': datetime
     }
 
     attribute_map = {
