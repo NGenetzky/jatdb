@@ -7,6 +7,7 @@ import uuid
 
 from jatdb_server.encoder import JSONEncoder
 from jatdb_server.models.universal_resource import UniversalResource  # noqa: E501
+from jatdb_server.models.content_file import ContentFile  # noqa: E501
 
 # TODO: Respect XDG_DATA_HOME and XDG_CONFIG_HOME
 CONFIG_HOME = os.path.expanduser("~/.config/jatdb")
@@ -62,5 +63,24 @@ class DbApp(object):
             raise Exception('There should never be more than one doc!')
 
         rv = UniversalResource.from_dict(docs[0])
+
+        return rv
+
+    def post_content(self, contentfile):
+        """ POST ContentFile
+        """
+        table = self.db.table('jatdb.content_file')
+
+        query = tinydb.Query()
+        docs = table.search(query.path == contentfile.path)
+
+        if len(docs) is 0: # Doesn't exist yet.
+            data = contentfile.to_dict()
+            table.insert(data)
+            docs = table.search(query.path == contentfile.path)
+        elif len(docs) is not 1:
+            raise Exception('There should never be more than one doc!')
+
+        rv = ContentFile.from_dict(docs[0])
 
         return rv
