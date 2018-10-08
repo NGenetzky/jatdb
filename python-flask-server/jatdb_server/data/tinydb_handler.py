@@ -53,13 +53,14 @@ class DbApp(object):
         query = tinydb.Query()
         docs = table.search(query.uri == uri.uri)
 
-        if len(docs) is 0:
+        if len(docs) is 0: # Doesn't exist yet.
             touch_universal_resource(uri)
-            table.insert(uri.to_dict())
-            rv = uri
-        elif len(docs) is 1:
-            rv = UniversalResource.from_dict(docs[0])
-        else:
+            data = uri.to_dict()
+            table.insert(data)
+            docs = table.search(query.uri == uri.uri)
+        elif len(docs) is not 1:
             raise Exception('There should never be more than one doc!')
+
+        rv = UniversalResource.from_dict(docs[0])
 
         return rv
