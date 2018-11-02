@@ -202,14 +202,14 @@ definitions:
     example:
       id: 17D71D5C93DD48F3BC73B54D2FC72393
       title: "@computer"
-      title_ts:
+      title_ts: null
       color: 8370431
       color_ts:
       type: l
-      type_ts:
-      created_on:
+      type_ts: null
+      created_on: null
       changed_ts: 1
-      removed_ts:
+      removed_ts: null
   EverdoItem:
     type: "object"
     properties:
@@ -285,30 +285,30 @@ definitions:
       url: "https://everdo.net/"
     example:
       id: 21CB3DEB506A48CD877EC9DCE95E2323
-      sync_id:
+      sync_id: null
       type: a
       list: a
       note: |-
         You can use time and energy filters to pick what to work on next.
         To edit time and energy, open the item editor by clicking on the item's title.
-      completed_on:
+      completed_on: null
       parent_id: D256DF37E6B64A22A76262BF732C623A
       title: This item has time and energy estimates
       created_on: 1513026000
       is_focused: 0
       energy: 2
       time: 30
-      due_date:
-      start_date:
-      schedule:
+      due_date: null
+      start_date: null
+      schedule: null
       recurrent_task_id: ''
       contact_id: ''
       tags: []
-      position_child:
-      position_parent:
-      position_focus:
-      position_global:
-      repeated_on:
+      position_child: null
+      position_parent: null
+      position_focus: null
+      position_global: null
+      repeated_on: null
   TrelloQuery:
     type: "object"
     properties:
