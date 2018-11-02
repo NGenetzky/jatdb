@@ -178,6 +178,135 @@ definitions:
       metadata:
         date: "2018-10-31"
         title: "Happy Birthday"
+  EverdoTag:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        description: "TODO"
+      title:
+        type: "string"
+        description: "TODO"
+      title_ts:
+        type: "string"
+        description: "TODO"
+      color:
+        type: "integer"
+        description: "TODO"
+      color_ts:
+        type: "integer"
+        description: "TODO"
+      type:
+        type: "string"
+        description: "TODO"
+      type_ts:
+        type: "integer"
+        description: "TODO"
+      created_on:
+        type: "integer"
+        description: "TODO"
+      changed_ts:
+        type: "integer"
+        description: "TODO"
+      removed_ts:
+        type: "integer"
+        description: "TODO"
+    externalDocs:
+      url: "https://everdo.net/"
+    example:
+      id: "17D71D5C93DD48F3BC73B54D2FC72393"
+      title: "@computer"
+      color: 8370431
+      type: "l"
+      changed_ts: 1
+  EverdoItem:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        description: "TODO"
+      sync_id:
+        type: "string"
+        description: "TODO"
+      type:
+        type: "string"
+        description: "TODO"
+      list:
+        type: "string"
+        description: "TODO"
+      note:
+        type: "string"
+        description: "TODO"
+      completed_on:
+        type: "integer"
+        description: "TODO"
+      parent_id:
+        type: "string"
+        description: "TODO"
+      title:
+        type: "string"
+        description: "TODO"
+      created_on:
+        type: "integer"
+        description: "TODO"
+      is_focused:
+        type: "integer"
+        description: "TODO"
+      energy:
+        type: "integer"
+        description: "TODO"
+      time:
+        type: "integer"
+        description: "TODO"
+      due_date:
+        type: "integer"
+        description: "TODO"
+      start_date:
+        type: "integer"
+        description: "TODO"
+      recurrent_task_id:
+        type: "integer"
+        description: "TODO"
+      contact_id:
+        type: "string"
+        description: "TODO"
+      tags:
+        type: "array"
+        description: "TODO"
+        items:
+          type: "integer"
+      position_child:
+        type: "integer"
+        description: "TODO"
+      position_parent:
+        type: "integer"
+        description: "TODO"
+      position_focus:
+        type: "integer"
+        description: "TODO"
+      position_global:
+        type: "integer"
+        description: "TODO"
+      repeated_on:
+        type: "integer"
+        description: "TODO"
+    externalDocs:
+      url: "https://everdo.net/"
+    example:
+      id: "21CB3DEB506A48CD877EC9DCE95E2323"
+      type: "a"
+      list: "a"
+      note: "You can use time and energy filters to pick what to work on next.\nTo\
+        \ edit time and energy, open the item editor by clicking on the item's title."
+      parent_id: "D256DF37E6B64A22A76262BF732C623A"
+      title: "This item has time and energy estimates"
+      created_on: 1513026000
+      is_focused: 0
+      energy: 2
+      time: 30
+      recurrent_task_id: ""
+      contact_id: ""
+      tags: []
   TrelloQuery:
     type: "object"
     properties:

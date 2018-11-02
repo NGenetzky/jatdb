@@ -16,6 +16,8 @@ from __future__ import absolute_import
 
 # import models into model package
 from jatdb_client.models.content_file import ContentFile
+from jatdb_client.models.everdo_item import EverdoItem
+from jatdb_client.models.everdo_tag import EverdoTag
 from jatdb_client.models.trello_action import TrelloAction
 from jatdb_client.models.trello_query import TrelloQuery
 from jatdb_client.models.universal_resource import UniversalResource

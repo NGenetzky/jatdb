@@ -25,6 +25,8 @@ from jatdb_client.api_client import ApiClient
 from jatdb_client.configuration import Configuration
 # import models into sdk package
 from jatdb_client.models.content_file import ContentFile
+from jatdb_client.models.everdo_item import EverdoItem
+from jatdb_client.models.everdo_tag import EverdoTag
 from jatdb_client.models.trello_action import TrelloAction
 from jatdb_client.models.trello_query import TrelloQuery
 from jatdb_client.models.universal_resource import UniversalResource
