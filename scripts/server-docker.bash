@@ -21,18 +21,24 @@ EOF
 server_docker(){
   local args=$@
   local tag="jatdb_server"
+  local name="jatdb_server"
 
   docker build \
     -t "${tag}" \
     "${SERVER_DIR}"
 
   server_help
+  docker kill "${name}" || true
   docker run \
-    --rm \
+    -d --rm \
+    --volume "$(pwd)/home:/root/" \
     -p "8080:8080" \
-    --name jatdb_server \
+    --name "${name}" \
     "${tag}" \
     $@
+  sleep 1
+  server_open
+  docker attach "${name}"
 }
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
