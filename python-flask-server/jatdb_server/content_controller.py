@@ -21,7 +21,8 @@ def content_get(path):  # noqa: E501
 
     :rtype: ContentFile
     """
-    return 'do some magic!'
+    dbapp = DbApp()
+    return dbapp.get_content(path)
 
 
 def content_post(contentfile):  # noqa: E501
@@ -29,7 +30,7 @@ def content_post(contentfile):  # noqa: E501
 
      # noqa: E501
 
-    :param contentfile: 
+    :param contentfile:
     :type contentfile: dict | bytes
 
     :rtype: UniversalResource
@@ -38,9 +39,7 @@ def content_post(contentfile):  # noqa: E501
         contentfile = ContentFile.from_dict(connexion.request.get_json())  # noqa: E501
 
     dbapp = DbApp()
-    ret = dbapp.post_content(contentfile)
-
-    return ret
+    return dbapp.post_content(contentfile)
 
 
 def content_put(path, contentfile):  # noqa: E501
@@ -50,11 +49,13 @@ def content_put(path, contentfile):  # noqa: E501
 
     :param path: Relative path to file
     :type path: str
-    :param contentfile: 
+    :param contentfile:
     :type contentfile: dict | bytes
 
     :rtype: UniversalResource
     """
     if connexion.request.is_json:
         contentfile = ContentFile.from_dict(connexion.request.get_json())  # noqa: E501
-    return 'do some magic!'
+
+    dbapp = DbApp()
+    return dbapp.put_content(path, contentfile)
