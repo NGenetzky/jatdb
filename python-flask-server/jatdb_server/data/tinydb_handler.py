@@ -48,7 +48,8 @@ class DbApp(object):
 
     def _create_db(self):
         dbpath = os.path.join(self._datadir, 'db.json')
-        return tinydb.TinyDB(dbpath, cls=JSONEncoder)
+        return tinydb.TinyDB(dbpath, cls=JSONEncoder, sort_keys=True, indent=4,
+                             separators=(',', ': '))
 
     def post_uri(self, uri):
         """ POST UniversalResource
