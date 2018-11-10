@@ -86,10 +86,14 @@ class JoplinDb(object):
         title = lines[0].encode('utf-8')
         log.info('{0}/index.md: {1}'.format(notedir, title))
 
+        parent = self.get_content('notebook', post['parent_id'])
+        parentname = parent.content.splitlines()[0].encode('utf-8')
+
         post.metadata = {
             "title": title,
             "date": copy.copy(joplin_note['created_time']),
-            "categories": [post['parent_id']],
+            # "categories": [post['parent_id']],
+            "categories": [parentname],
             "__joplin_note__": joplin_note,
         }
 
