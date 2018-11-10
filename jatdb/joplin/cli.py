@@ -76,8 +76,8 @@ class JoplinDb(object):
 
         short_name = '{0}-{1}'.format(
             joplin_note['created_time'].date().isoformat(), joplin_note["id"])
-        parentdir = os.path.join(outdir, 'post', post['parent_id'])
-        notedir = os.path.join(outdir, 'post', post['parent_id'], short_name)
+        # parentdir = os.path.join(outdir, 'post', post['parent_id'])
+        notedir = os.path.join(outdir, 'post', 'joplin_note', short_name)
 
         if not os.path.isdir(notedir):
             os.makedirs(notedir)
@@ -89,6 +89,7 @@ class JoplinDb(object):
         post.metadata = {
             "title": title,
             "date": copy.copy(joplin_note['created_time']),
+            "categories": [post['parent_id']],
             "__joplin_note__": joplin_note,
         }
 
