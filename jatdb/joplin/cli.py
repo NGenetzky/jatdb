@@ -25,6 +25,50 @@ def frontmatter_dump(post, filename):
         return frontmatter.dump(post, fd)
 
 
+class JoplinDb(object):
+
+    TYPES = {
+        1: 'note',
+        2: 'notebook',
+        4: 'resource',
+        5: 'tag',
+        6: 'notetag',
+    }
+
+    def __init__(self, root):
+        self.root = root
+        self._data = {}
+        for t in self.TYPES:
+            self._data[self.TYPES[t]] = {}
+
+    def index(self):
+        for root, dirs, files in os.walk(self.root):
+            if root == os.path.join(self.root, '.resource'):
+                continue
+            for f in files:
+                fullpath = os.path.join(root, f)
+                try:
+                    post = frontmatter_load(fullpath)
+                except UnicodeDecodeError:
+                    log.error('frontmatter_load({})'.format(fullpath))
+                    continue
+                typename = self.TYPES[post['type_']]
+                self._data[typename][post['id']] = post.metadata
+                log.debug('JoplinDb._data[{0}][{1}]'.format(
+                    typename, post['id']))
+
+    def get_content(self, type_, id_):
+        filepath = os.path.join(self.root, id_ + ".md")
+        if not os.path.isfile(filepath):
+            raise ValueError('_data[{0}][{1}]'.format(type_, id_))
+        post = frontmatter_load(filepath)
+        return post
+
+    @property
+    def notes(self):
+        return self._data['note']
+
+
 def note_handler(post, outdir):
     joplin_note = post.metadata
 
@@ -35,6 +79,7 @@ def note_handler(post, outdir):
 
     if not os.path.isdir(notedir):
         os.makedirs(notedir)
+
     lines = post.content.splitlines()
     title = lines[0].encode('utf-8')
     log.info('{0}/index.md: {1}'.format(notedir, title))
@@ -84,7 +129,12 @@ def main(argv=None):
     args = parse_args(argv)
 
     if (args.sync is not None and args.out is not None):
-        find_files_in_sync(args.sync, args.out)
+        # find_files_in_sync(args.sync, args.out)
+        db = JoplinDb(args.sync)
+        db.index()
+        for note in db.notes:
+            post = db.get_content('note', note)
+            note_handler(post, args.out)
 
     return 0
 
