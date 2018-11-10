@@ -36,6 +36,8 @@ class JoplinDb(object):
     }
 
     def __init__(self, root):
+        if not os.path.isdir(os.path.join(root,'.resource')):
+            raise ValueError("Directory({0}) does not appear to be sync dir")
         self.root = root
         self._data = {}
         for t in self.TYPES:
@@ -68,55 +70,29 @@ class JoplinDb(object):
     def notes(self):
         return self._data['note']
 
+    def post_note(self, id_, outdir):
+        post = self.get_content('note', id_)
+        joplin_note = post.metadata
 
-def note_handler(post, outdir):
-    joplin_note = post.metadata
+        short_name = '{0}-{1}'.format(
+            joplin_note['created_time'].date().isoformat(), joplin_note["id"])
+        parentdir = os.path.join(outdir, 'post', post['parent_id'])
+        notedir = os.path.join(outdir, 'post', post['parent_id'], short_name)
 
-    short_name = '{0}-{1}'.format(
-        joplin_note['created_time'].date().isoformat(), joplin_note["id"])
-    parentdir = os.path.join(outdir, 'post', post['parent_id'])
-    notedir = os.path.join(outdir, 'post', post['parent_id'], short_name)
+        if not os.path.isdir(notedir):
+            os.makedirs(notedir)
 
-    if not os.path.isdir(notedir):
-        os.makedirs(notedir)
+        lines = post.content.splitlines()
+        title = lines[0].encode('utf-8')
+        log.info('{0}/index.md: {1}'.format(notedir, title))
 
-    lines = post.content.splitlines()
-    title = lines[0].encode('utf-8')
-    log.info('{0}/index.md: {1}'.format(notedir, title))
+        post.metadata = {
+            "title": title,
+            "date": copy.copy(joplin_note['created_time']),
+            "__joplin_note__": joplin_note,
+        }
 
-    post.metadata = {
-        "title": title,
-        "date": copy.copy(joplin_note['created_time']),
-        "__joplin_note__": joplin_note,
-    }
-
-    frontmatter_dump(post, os.path.join(notedir, 'index.md'))
-
-
-def content_handler(filename, outdir):
-    log.debug(filename)
-    post = frontmatter_load(filename)
-    if post['type_'] is 1:
-        note_handler(post, outdir)
-    else:
-        log.info('pass {0} -> {1}'.format(filename, post['id']))
-        pass
-
-
-def find_files_in_sync(syncdir, outdir):
-    if not os.path.exists(syncdir + '.resource'):
-        raise ValueError("Directory({0}) does not appear to be sync dir")
-
-    for root, dirs, files in os.walk(syncdir):
-        print(root)
-        if root == syncdir:
-            for f in files:
-                content_handler(root + f, outdir)
-        elif root == syncdir + '.resource':
-            pass
-        else:
-            pass
-
+        frontmatter_dump(post, os.path.join(notedir, 'index.md'))
 
 def parse_args(argv):
     parser = argparse.ArgumentParser(description=__doc__)
@@ -129,13 +105,10 @@ def main(argv=None):
     args = parse_args(argv)
 
     if (args.sync is not None and args.out is not None):
-        # find_files_in_sync(args.sync, args.out)
         db = JoplinDb(args.sync)
         db.index()
         for note in db.notes:
-            post = db.get_content('note', note)
-            note_handler(post, args.out)
-
+            db.post_note(note, args.out)
     return 0
 
 
