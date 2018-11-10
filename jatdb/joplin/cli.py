@@ -36,12 +36,13 @@ class JoplinDb(object):
     }
 
     def __init__(self, root):
-        if not os.path.isdir(os.path.join(root,'.resource')):
+        if not os.path.isdir(os.path.join(root, '.resource')):
             raise ValueError("Directory({0}) does not appear to be sync dir")
         self.root = root
         self._data = {}
         for t in self.TYPES:
             self._data[self.TYPES[t]] = {}
+        self._data['tag_of_note'] = {}
 
     def index(self):
         for root, dirs, files in os.walk(self.root):
@@ -59,6 +60,13 @@ class JoplinDb(object):
                 log.debug('JoplinDb._data[{0}][{1}]'.format(
                     typename, post['id']))
 
+        for note in self.notes:
+            self._data['tag_of_note'][note] = set()
+        for notetag in self.notetags:
+            noteid = self._data['notetag'][notetag]['note_id']
+            tagid = self._data['notetag'][notetag]['tag_id']
+            self._data['tag_of_note'][noteid].add(tagid)
+
     def get_content(self, type_, id_):
         filepath = os.path.join(self.root, id_ + ".md")
         if not os.path.isfile(filepath):
@@ -69,6 +77,10 @@ class JoplinDb(object):
     @property
     def notes(self):
         return self._data['note']
+
+    @property
+    def notetags(self):
+        return self._data['notetag']
 
     def post_note(self, id_, outdir):
         post = self.get_content('note', id_)
@@ -89,15 +101,23 @@ class JoplinDb(object):
         parent = self.get_content('notebook', post['parent_id'])
         parentname = parent.content.splitlines()[0].encode('utf-8')
 
+        tags = set()
+        for tag in self._data['tag_of_note'][id_]:
+            tagpost = self.get_content('tag', tag)
+            tagname = tagpost.content.splitlines()[0].encode('utf-8')
+            tags.add(tagname)
+
         post.metadata = {
             "title": title,
             "date": copy.copy(joplin_note['created_time']),
             # "categories": [post['parent_id']],
             "categories": [parentname],
+            "tags": list(tags),
             "__joplin_note__": joplin_note,
         }
 
         frontmatter_dump(post, os.path.join(notedir, 'index.md'))
+
 
 def parse_args(argv):
     parser = argparse.ArgumentParser(description=__doc__)
