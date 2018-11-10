@@ -18,13 +18,31 @@ def frontmatter_load(filename):
         return frontmatter.load(fd=fd)
 
 
-def content_handler(filename):
+def frontmatter_dump(post, filename):
+    post.handler = frontmatter.YAMLHandler()
+    with open(filename, 'w') as fd:
+        return frontmatter.dump(post, fd)
+
+
+def note_handler(post, outdir):
+    notedir = os.path.join(outdir, post['parent_id'], post['id'])
+    if not os.path.isdir(notedir):
+        os.makedirs(notedir)
+    # log.info('{0}/{1}'.format(post['parent_id'], post['id']))
+    frontmatter_dump(post, os.path.join(notedir, 'index.md'))
+
+
+def content_handler(filename, outdir):
     log.debug(filename)
     post = frontmatter_load(filename)
-    log.info('{0} -> {1}'.format(filename, post['id']))
+    if post['type_'] is 1:
+        note_handler(post, outdir)
+    else:
+        log.info('pass {0} -> {1}'.format(filename, post['id']))
+        pass
 
 
-def find_files_in_sync(syncdir):
+def find_files_in_sync(syncdir, outdir):
     if not os.path.exists(syncdir + '.resource'):
         raise ValueError("Directory({0}) does not appear to be sync dir")
 
@@ -32,7 +50,7 @@ def find_files_in_sync(syncdir):
         print(root)
         if root == syncdir:
             for f in files:
-                content_handler(root + f)
+                content_handler(root + f, outdir)
         elif root == syncdir + '.resource':
             pass
         else:
@@ -49,8 +67,8 @@ def parse_args(argv):
 def main(argv=None):
     args = parse_args(argv)
 
-    if args.sync is not None:
-        find_files_in_sync(args.sync)
+    if (args.sync is not None and args.out is not None):
+        find_files_in_sync(args.sync, args.out)
 
     return 0
 
