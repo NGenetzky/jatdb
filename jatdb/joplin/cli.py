@@ -5,6 +5,7 @@ import argparse
 import logging
 import os
 import sys
+import copy
 
 # This is currently a special frontmatter package that has 'joplin-support'
 import frontmatter
@@ -25,10 +26,25 @@ def frontmatter_dump(post, filename):
 
 
 def note_handler(post, outdir):
-    notedir = os.path.join(outdir, post['parent_id'], post['id'])
+    joplin_note = post.metadata
+
+    short_name = '{0}-{1}'.format(
+        joplin_note['created_time'].date().isoformat(), joplin_note["id"])
+    parentdir = os.path.join(outdir, post['parent_id'])
+    notedir = os.path.join(outdir, post['parent_id'], short_name)
+
     if not os.path.isdir(notedir):
         os.makedirs(notedir)
-    # log.info('{0}/{1}'.format(post['parent_id'], post['id']))
+    lines = post.content.splitlines()
+    title = lines[0].encode('utf-8')
+    log.info('{0}/index.md: {1}'.format(notedir, title))
+
+    post.metadata = {
+        "title": title,
+        "date": copy.copy(joplin_note['created_time']),
+        "__joplin_note__": joplin_note,
+    }
+
     frontmatter_dump(post, os.path.join(notedir, 'index.md'))
 
 
