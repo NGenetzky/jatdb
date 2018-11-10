@@ -30,8 +30,8 @@ def note_handler(post, outdir):
 
     short_name = '{0}-{1}'.format(
         joplin_note['created_time'].date().isoformat(), joplin_note["id"])
-    parentdir = os.path.join(outdir, post['parent_id'])
-    notedir = os.path.join(outdir, post['parent_id'], short_name)
+    parentdir = os.path.join(outdir, 'post', post['parent_id'])
+    notedir = os.path.join(outdir, 'post', post['parent_id'], short_name)
 
     if not os.path.isdir(notedir):
         os.makedirs(notedir)
